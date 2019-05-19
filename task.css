@@ -1,0 +1,75 @@
+* {
+    font-family: 'Verdana', sans-serif;
+}
+
+li {
+    font-size: 13px;
+}
+
+ol li {
+    position: relative;
+    left: -20px;
+}
+
+ul {
+    list-style-type: none;
+    position: relative;
+    left: -15px;
+    font-size: 13px;
+}
+
+ul li:before {
+    content: "-";
+    position: relative;
+    left: -5px;
+}
+
+caption {
+    font-weight: bold;
+    font-size: 80%;
+}
+
+caption + thead {
+    text-align: center;
+    font-weight: bold;
+    font-size: 80%;
+}
+
+tr td {
+    height: 20px;
+    border: 1px solid black;
+}
+
+input {
+    width: 200px;
+    text-align: center;
+}
+
+button {
+    border: 1px;
+    border-radius: 1px;
+    position: relative;
+    top: -1.5em;
+    left: 64em;
+}
+
+table.answer {
+    border: 1px solid black; 
+    position: relative;
+    top: 20px;
+}
+
+table.task {
+    width: 845px; 
+    text-align: left;
+    font-size: 80%;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    position: relative;
+    top: 5px;
+}
+
+table.task td {
+    padding: 10px;
+    padding-left: 5px;
+}
