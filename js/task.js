@@ -71,7 +71,6 @@ const addButtonSecondTable = document.getElementsByClassName('add')[1];
 const removeButtonSecondTable = document.getElementsByClassName('remove')[1];
 
 function main() {
-    console.log(document.getElementById('first-table'));
     addButtonFirstTable.addEventListener("click", function() {addRow('first-table')} );
     removeButtonFirstTable.addEventListener("click", function() {deleteRow('first-table')} );
     addButtonSecondTable.addEventListener("click", function() {addRow('second-table')} );

@@ -49,17 +49,17 @@ button {
     border: 1px;
     border-radius: 1px;
     position: relative;
-    top: -1.5em;
+    /* top: -1.5em; */
     left: 64em;
 }
 
-table.answer {
+.answer {
     border: 1px solid black; 
     position: relative;
     top: 20px;
 }
 
-table.task {
+.task {
     width: 845px; 
     text-align: left;
     font-size: 80%;
@@ -69,7 +69,13 @@ table.task {
     top: 5px;
 }
 
-table.task td {
+.task td {
     padding: 10px;
     padding-left: 5px;
+}
+
+#send {
+    position: relative;
+    top: 30px;
+    left: -3.9em; /*подправить расположение элемента по возможности*/
 }

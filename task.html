@@ -4,9 +4,12 @@
         <meta charset="utf-8">
         <title>Генератор заданий по теме "Продукционная модель"</title>
         <link rel="stylesheet" href="task.css">
+        <script src=http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js></script>
+        <script src="variants.json"></script>
+        <script src="server/server.js"></script>
     </head>
     <body>
-        <section id='task-text'>
+        <section id="task-text">
             <h3>Вывод целевого факта путем применения прямого вывода</h3>
             <b>Задание</b>
             <ol>
@@ -20,9 +23,9 @@
             </ol>
         </section>
 
-        <div id='variant'></div>
+        <div id="variant">
             <b>Вариант задания</b>
-            <table class='task'>
+            <table class="task">
                 <thead>
                     <tr>
                         <td>База правил</td>
@@ -38,8 +41,8 @@
             </table>
         </div>
 
-        <form>
-            <table id='first-table' class='answer'>
+        <!-- <form> -->
+            <table id="first-table" class="answer">
                 <caption>Поиск в ширину</caption>
                 <thead>
                     <tr>
@@ -69,7 +72,7 @@
             <button class="add">+</button>
             <button class="remove">-</button>
 
-            <table id='second-table' class='answer'>
+            <table id="second-table" class="answer">
                 <caption>Поиск в глубину</caption>
                 <thead>
                     <tr>
@@ -98,11 +101,11 @@
             </table>
             <button class="add">+</button>
             <button class="remove">-</button>
-        </form>
-
-        <!-- Добавить форму -->
-        
+            <input type="button" id="send" value="Отправить">
+        <!-- </form> -->
+       
         <script src="js/task.js"></script>
+
           
     </body>  
 </html>
