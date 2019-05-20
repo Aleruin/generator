@@ -1,17 +1,22 @@
 window.onload = function() {
     const taskTableBody = document.getElementById('variant').getElementsByTagName('tbody')[0];
     const tdElements = taskTableBody.querySelectorAll('td');
-    //console.log(tdElements);
-    //console.log('variants.json');
+    ajaxJSON("variants.json", function(text){
+        var data = JSON.parse(text);
+        console.log(data);
+    });
+ }
 
-    // $.getJSON("variants.json", function(json) {
-    //     console.log(json); // this will show the info it in firebug console
-    // });
-    // var jsonFiles = jsonGet();
-    // tdElements[0].value = jsonFiles[0].rulesBase;
-    // tdElements[1].value = jsonFiles[0].factsBase;
+function ajaxJSON(file, callback) {
+    var request = new XMLHttpRequest();
+    request.overrideMimeType("application/json");
+    request.open("GET", file, true);
+    request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status == "200") {
+            callback(request.responseText);
+        }
+    }
+    request.send(null); 
+
 }
 
-function ajaxJSON() {
-
-}
