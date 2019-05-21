@@ -3,7 +3,8 @@ window.onload = function() {
     const tdElements = taskTableBody.querySelectorAll('td');
     ajaxJSON("variants.json", function(text){
         var data = JSON.parse(text);
-        console.log(data);
+        tdElements[0].innerHTML = data[0].rulesBase;
+        tdElements[1].innerHTML = data[1].factsBase;
     });
  }
 
