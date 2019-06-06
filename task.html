@@ -44,7 +44,7 @@
             </table>
         </div>
 
-        <!-- <form> -->
+        <form id="answer-form">
             <table id="first-table" class="answer">
                 <caption>Поиск в ширину</caption>
                 <thead>
@@ -58,7 +58,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type='text'>
+                            0
                         </td>
                         <td>
                             <input type='text'>
@@ -88,26 +88,27 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type='text'>
+                            0
                         </td>
                         <td>
-                            <input type='text'>
+                            <input type='text' name="user-facts">
                         </td>
                         <td>
-                            <input type='text'>
+                            <input type='text' name="conf-plur">
                         </td>
                         <td>
-                            <input type='text'>
+                            <input type='text' name="active-rule">
                         </td>
                     </tr>
                 </tbody>
             </table>
             <button class="add">+</button>
             <button class="remove">-</button>
-            <input type="button" id="send" value="Сохранить">
-        <!-- </form> -->
+            <input type="submit" id="send" value="Сохранить">
+        </form>
        
         <script src="js/table-work.js"></script>
-                  
+        <script src="js/load-answer.js"></script>
+                         
     </body>  
 </html>

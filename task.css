@@ -12,27 +12,27 @@ ol li {
 }
 
 ul {
-    list-style-type: none;
     position: relative;
     left: -15px;
     font-size: 13px;
+    list-style-type: none;
 }
 
 ul li:before {
-    content: "-";
     position: relative;
     left: -5px;
+    content: "-";    
 }
 
 caption {
-    font-weight: bold;
     font-size: 80%;
+    font-weight: bold;
 }
 
 caption + thead {
-    text-align: center;
-    font-weight: bold;
     font-size: 80%;
+    font-weight: bold;
+    text-align: center;
 }
 
 tr td {
@@ -46,32 +46,45 @@ input {
 }
 
 button {
-    border: 1px;
-    border-radius: 1px;
     position: relative;
-    /* top: -1.5em; */
     left: 64em;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    width: 90px;
+    height: 25px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #46d381;
+    color: #ffffff;
+    text-align: left;
 }
 
 .answer {
-    border: 1px solid black; 
     position: relative;
     top: 20px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.answer tbody tr td:first-child {
+    font-size: 80%;
 }
 
 .task {
+    position: relative;
+    top: 5px;
     width: 845px; 
     text-align: left;
     font-size: 80%;
     font-weight: bold;
     border: 1px solid #aaa;
-    position: relative;
-    top: 5px;
 }
 
 .task td {
-    padding: 10px;
-    padding-left: 5px;
+    padding: 10px 5px;
 }
 
 #send {
