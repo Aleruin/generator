@@ -1,35 +1,50 @@
+function Answer(stepNumber, userFactsBase, conflictPluraty, numberOfActivatedRule) {
+    this.stepNumber = stepNumber;
+    this.userFactsBase = userFactsBase;
+    this.conflictPluraty = conflictPluraty;
+    this.numberOfActivatedRule = numberOfActivatedRule;
+}
+
 function serialize(form) {
     if (form.nodeName !== "FORM") return false;
 
-    const loadForm = document.querySelector('#answer-form');
-    let stepCounter = 1, stepNumber = [], userFactsBase = [], conflictPluraty = [], numberOfActivatedRule = [];
-    let loadFormElements = loadForm.elements;
+    let firstTable = form.querySelector('#first-table');
+    let secondTable = form.querySelector('#second-table');
+    let tables = [firstTable, secondTable];
+    let result = [];
 
-    for (let i = 0; i < loadForm.length; i++) {
-        switch(loadFormElements[i].nodeName) {
-            case 'INPUT': {
-                switch(loadFormElements[i].name) {
-                    case "user-facts": {
-                        userFactsBase.push(loadFormElements[i].value);
-                        break;
-                    }
-                    case "conf-plur": {
-                        conflictPluraty.push(loadFormElements[i].value);
-                        break;
-                    }
-                    case "active-rule": {
-                        numberOfActivatedRule.push(loadFormElements[i].value);
-                        break;
-                    }
+    tables.forEach(function(table) {
+        let stepCounter = 0, stepNumber = [], userFactsBase = [], conflictPluraty = [], numberOfActivatedRule = [];
+        let inp = table.getElementsByTagName('input');
 
+        for (let i = 0; i < inp.length; i++) {
+            switch(inp[i].name) {
+                case "user-facts": {
+                    userFactsBase.push(inp[i].value);
+                    break;
                 }
+                case "conf-plur": {
+                    conflictPluraty.push(inp[i].value);
+                    break;
+                }
+                case "active-rule": {
+                    numberOfActivatedRule.push(inp[i].value);
+                    break;
+                }
+            }
 
+            if (i % 3 == 0){
                 stepNumber.push(stepCounter);
                 stepCounter++;
-            }
-            case 'BUTTON': break;
+            }             
         }
-    }
+        
+        result.push(new Answer(stepNumber, userFactsBase, conflictPluraty, numberOfActivatedRule));
+        
+        stepCounter = 0;
+    })
+
+    return JSON.stringify(result);
 }
 
 function loadAnswerRequest() {
@@ -45,4 +60,21 @@ function loadAnswerRequest() {
     request.send(null); 
 }
 
+const loadForm = document.forms[0];
+console.log(loadForm.nodeName);
+const saveButton = document.querySelector('input[type="submit"]');
+saveButton.onclick = function (event) {
+    event.preventDefault();
+    console.log(serialize(loadForm));
+}
+//saveButton.addEventListener("submit", function() { serialize(loadForm) });
 
+// function include(url) {
+//         var script = document.createElement('script');
+//         script.src = url;
+//         document.getElementsByTagName('head')[0].appendChild(script);
+//     }
+
+// include("/js/script.js");
+
+//console.log(loadForm.querySelector('#first-table'));
