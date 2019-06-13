@@ -5,11 +5,30 @@ function Answer(stepNumber, userFactsBase, conflictPluraty, numberOfActivatedRul
     this.numberOfActivatedRule = numberOfActivatedRule;
 }
 
-function serialize(form) {
-    if (form.nodeName !== "FORM") return false;
+function serialize(forms) {
+    var q = [];
 
-    let firstTable = form.querySelector('#first-table');
-    let secondTable = form.querySelector('#second-table');
+    for (let j = 0; j < forms.length; j++)
+    {
+        for (let i = 0; i < forms[j].elements.length; i++) {
+            if (forms[j].elements[i].name === "") continue;
+    
+            switch(forms[j].elements[i].nodeName) {
+                case 'INPUT': {
+                    q.push(forms[j].elements[i].name + j +"=" + encodeURIComponent(forms[j].elements[i].value));
+                    break;
+                }
+                case 'BUTTON': break;
+            }
+        }
+    }
+
+    return q.join("&");
+}
+
+function localSerialize() {
+    let firstTable = document.querySelector('#first-table');
+    let secondTable = document.querySelector('#second-table');
     let tables = [firstTable, secondTable];
     let result = [];
 
@@ -40,32 +59,42 @@ function serialize(form) {
         }
         
         result.push(new Answer(stepNumber, userFactsBase, conflictPluraty, numberOfActivatedRule));
-        
         stepCounter = 0;
     })
 
     return JSON.stringify(result);
 }
 
-function loadAnswerRequest() {
+function loadAnswerRequest(answerForms) {
     var request = new XMLHttpRequest();
-
-    request.open("POST", file, true);
+    
+    request.open('POST', 'server.js', true);
+    request.setRequestHeader("Content-Type", "application/json");
     request.onreadystatechange = function() {
-        if (request.readyState === 4 && request.status == "200") {
-            callback(request.responseText);
+        if (this.readyState === 4 && this.status == "200") {
+            alert(this.responseText);
+        } else {
+            alert("Что-то пошло не так");
         }
     }
 
-    request.send(null); 
+    request.send(localSerialize()); 
 }
 
+const arrayForms = document.forms;
 const loadForm = document.forms[0];
-console.log(loadForm.nodeName);
-const saveButton = document.querySelector('input[type="submit"]');
+const saveButton = document.querySelector('input[type="button"]');
+
 saveButton.onclick = function (event) {
     event.preventDefault();
-    console.log(serialize(loadForm));
+    console.log(localSerialize());
+    loadAnswerRequest(arrayForms);
+
+  
+    // let blob = new Blob([localSerialize()], {type: "application/json"});
+   
+    // saveAs(blob, "answer.json");
+
 }
 //saveButton.addEventListener("submit", function() { serialize(loadForm) });
 
@@ -78,3 +107,4 @@ saveButton.onclick = function (event) {
 // include("/js/script.js");
 
 //console.log(loadForm.querySelector('#first-table'));
+

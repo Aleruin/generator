@@ -3,20 +3,31 @@
     <head>
         <meta charset="utf-8">
         <title>Генератор заданий по теме "Продукционная модель"</title>
-        <link rel="stylesheet" href="save.css">
+        <link rel="stylesheet" href="css/save.css">
     </head>
     <body>
-        <h3>Сохранить задание на сервере</h3>
-        <p>Для сохранения задания на сервере укажите ваше ФИО и номер группы<br>
-            Также вы должны ввести ваш ответ в форме "Ответ".
-        </p>
-        <div id="fio">
-            <p>Ваше ФИО</p>
-            <input type="text" value="Ваше ФИО">
-        </div>
-        <div id="group-num">
-            <p>Номер вашей группы</p>
-            <input type="text" value="Номер вашей группы">
-        </div>
+        <section>
+            <h3>Сохранить задание на сервере</h3>
+            <p>Для сохранения задания на сервере укажите ваше ФИО и номер группы.<br>
+            <span>Также вы должны ввести ваш ответ в форме "Ответ".</span></p>
+            <div id="fio">
+                <p>Ваше ФИО</p>
+                <input type="text" value="Ваше ФИО">
+                <p>Заполните ваше полное ФИО</p>
+            </div>
+            <div id="group-num">
+                <p>Номер вашей группы</p>
+                <input type="text" value="Номер вашей группы">
+                <p>Заполните номер вашей группы</p>
+            </div>
+            <div style="clear:both"></div>
+            <input type="submit" id="send-to-server" value="Сохранить задание на сервере">
+        </section>
+        <section>
+            <h3>Сохранить задание в файл</h3>
+            <p>Вы можете сохранить свое задание в файл, чтобы решить его позже.<br>
+            <span>Если вы сохранили задание, то загрузите задание в фоме "загрузка задания из файла</span></p>  
+            <input type="submit" id="save-local" value="Сохранить задание в файл"> 
+        </section>
     </body>
 </html>

@@ -1,12 +1,21 @@
-var http = require('http');
-var static = require('node-static');
-var file = new static.Server('.');
+var express = require('express');
+var app = express();
+var fs = require('fs');
 
-http.createServer(function(req, res) {
-  file.serve(req, res);
-}).listen(8080);
+app.use(express.static(__dirname + '/'));
 
-console.log('Connection established');
+app.use(express.json());
+
+app.post('/server.js', function(req, res){
+  console.log(req.body);
+  fs.writeFile('answer.json', JSON.stringify(req.body), 'utf-8', function(err, data) {});
+});
+
+app.listen(8080);
+
+console.log('Server running on port 8080');
+
+
 
 
 

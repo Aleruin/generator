@@ -1,0 +1,47 @@
+* {
+    font-family: 'Verdana', sans-serif;
+}
+
+span {
+    font-size: 80%
+}
+
+input[type="text"] {
+    height: 30px;
+    width: 300px;
+    border: 1px inset #c8c6c6;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    height: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #46d381;
+    color: #ffffff;
+    text-align: justify;
+}
+
+
+div p:first-child {
+    position: relative;
+    top: 5px; 
+    font-size: 80%
+}
+
+div p:last-child {
+    position: relative;
+    bottom: 10px; 
+    font-size: 70%
+}
+
+#fio {
+    float: left;
+}
+
+#group-num {
+    position: relative;
+    float: left;
+    left: 15px;
+}
+

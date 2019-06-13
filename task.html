@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <title>Генератор заданий по теме "Продукционная модель"</title>
-        <link rel="stylesheet" href="task.css">
+        <link rel="stylesheet" href="css/task.css">
         <script src="variants.json"></script>
         <script src="js/task.js"></script>
+        <script src="fs/src/FileSaver.js"></script>
     </head>
     <body>
         <section id="task-text">
@@ -44,7 +45,7 @@
             </table>
         </div>
 
-        <form id="answer-form">
+        <form id="first-form" method="POST">
             <table id="first-table" class="answer">
                 <caption>Поиск в ширину</caption>
                 <thead>
@@ -72,7 +73,9 @@
             </table>
             <button class="add">+</button>
             <button class="remove">-</button>
+        </form>
 
+        <form id="second-form" method="POST">
             <table id="second-table" class="answer">
                 <caption>Поиск в глубину</caption>
                 <thead>
@@ -100,9 +103,9 @@
             </table>
             <button class="add">+</button>
             <button class="remove">-</button>
-            <input type="submit" id="send" value="Сохранить">
         </form>
-       
+        <input type="button" id="send" value="Проверить ответ">
+               
         <script src="js/table-work.js"></script>
         <script src="js/load-answer.js"></script>
                          
