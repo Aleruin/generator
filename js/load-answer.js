@@ -1,53 +1,54 @@
-function Answer(stepNumber, userFactsBase, conflictPluraty, numberOfActivatedRule) {
+function Answer(stepNumber, factsBase, conflictPluraty, numberOfActivatedRule) {
     this.stepNumber = stepNumber;
-    this.userFactsBase = userFactsBase;
+    this.factsBase = factsBase;
     this.conflictPluraty = conflictPluraty;
     this.numberOfActivatedRule = numberOfActivatedRule;
 }
 
-function serialize(forms) {
-    var q = [];
+function ElementStructure(element, isCorrect) {
+    this.element = element;
+    this.isCorrect = isCorrect;
+}
 
-    for (let j = 0; j < forms.length; j++)
-    {
-        for (let i = 0; i < forms[j].elements.length; i++) {
-            if (forms[j].elements[i].name === "") continue;
-    
-            switch(forms[j].elements[i].nodeName) {
-                case 'INPUT': {
-                    q.push(forms[j].elements[i].name + j +"=" + encodeURIComponent(forms[j].elements[i].value));
-                    break;
-                }
-                case 'BUTTON': break;
-            }
-        }
-    }
+function Decision(dfsMethod, bfsMethod) {
+    this.dfsMethod = dfsMethod;
+    this.bfsMethod = bfsMethod;
+}
 
-    return q.join("&");
+function FileDecision(student, decision) {
+    this.student = student;
+    this.decision = decision;
 }
 
 function localSerialize() {
-    let firstTable = document.querySelector('#first-table');
-    let secondTable = document.querySelector('#second-table');
+    let firstTable = document.querySelector('#second-table'); //потом ИСПРАВИТЬ!
+    let secondTable = document.querySelector('#first-table'); //потом ИСПРАВИТЬ!
+    let decision = new Decision();
     let tables = [firstTable, secondTable];
     let result = [];
 
     tables.forEach(function(table) {
-        let stepCounter = 0, stepNumber = [], userFactsBase = [], conflictPluraty = [], numberOfActivatedRule = [];
+        let stepCounter = 0, stepNumber = [], factsBase = [], conflictPluraty = [], numberOfActivatedRule = [];
         let inp = table.getElementsByTagName('input');
-
+           
         for (let i = 0; i < inp.length; i++) {
             switch(inp[i].name) {
                 case "user-facts": {
-                    userFactsBase.push(inp[i].value);
+                    if (inp[i].value) {
+                        factsBase.push(new ElementStructure(inp[i].value, 0));
+                    }                  
                     break;
                 }
                 case "conf-plur": {
-                    conflictPluraty.push(inp[i].value);
+                    if (inp[i].value) {
+                        conflictPluraty.push(new ElementStructure(inp[i].value, 0));
+                    }                    
                     break;
                 }
                 case "active-rule": {
-                    numberOfActivatedRule.push(inp[i].value);
+                    if (inp[i].value) {
+                        numberOfActivatedRule.push(new ElementStructure(inp[i].value, 0));
+                    }
                     break;
                 }
             }
@@ -58,14 +59,23 @@ function localSerialize() {
             }             
         }
         
-        result.push(new Answer(stepNumber, userFactsBase, conflictPluraty, numberOfActivatedRule));
+        result.push(new Answer(stepNumber, factsBase, conflictPluraty, numberOfActivatedRule));
         stepCounter = 0;
     })
 
-    return JSON.stringify(result);
+    let i = 0;
+
+    for (var keys in decision) {
+        decision[keys] = result[i];
+        i++;
+    }  
+
+    let fileDecision = new FileDecision("FIO", decision);
+
+    return JSON.stringify(fileDecision);
 }
 
-function loadAnswerRequest(answerForms) {
+function loadAnswerRequest() {
     var request = new XMLHttpRequest();
     
     request.open('POST', 'server.js', true);
@@ -83,18 +93,21 @@ function loadAnswerRequest(answerForms) {
 
 const arrayForms = document.forms;
 const loadForm = document.forms[0];
-const saveButton = document.querySelector('input[type="button"]');
+const saveToServerButton = document.querySelector('#send-to-server');
+const localSaveButton = document.querySelector('#save-local');
 
-saveButton.onclick = function (event) {
+saveToServerButton.onclick = function (event) {
     event.preventDefault();
-    console.log(localSerialize());
-    loadAnswerRequest(arrayForms);
+    loadAnswerRequest();
+    // window.location.href = "save.html"; 
+}
 
-  
-    // let blob = new Blob([localSerialize()], {type: "application/json"});
+localSaveButton.onclick = function (event) {
+    event.preventDefault();
+
+    let blob = new Blob([localSerialize()], {type: "application/json"});
    
-    // saveAs(blob, "answer.json");
-
+    saveAs(blob, "answer.json");
 }
 //saveButton.addEventListener("submit", function() { serialize(loadForm) });
 
@@ -108,3 +121,23 @@ saveButton.onclick = function (event) {
 
 //console.log(loadForm.querySelector('#first-table'));
 
+// function serialize(forms) {
+//     var q = [];
+
+//     for (let j = 0; j < forms.length; j++)
+//     {
+//         for (let i = 0; i < forms[j].elements.length; i++) {
+//             if (forms[j].elements[i].name === "") continue;
+    
+//             switch(forms[j].elements[i].nodeName) {
+//                 case 'INPUT': {
+//                     q.push(forms[j].elements[i].name + j +"=" + encodeURIComponent(forms[j].elements[i].value));
+//                     break;
+//                 }
+//                 case 'BUTTON': break;
+//             }
+//         }
+//     }
+
+//     return q.join("&");
+// }

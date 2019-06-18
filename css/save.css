@@ -2,8 +2,10 @@
     font-family: 'Verdana', sans-serif;
 }
 
-span {
-    font-size: 80%
+div p {
+    position: relative;
+    bottom: 10px; 
+    font-size: 70%
 }
 
 input[type="text"] {
@@ -11,37 +13,43 @@ input[type="text"] {
     width: 300px;
     border: 1px inset #c8c6c6;
     border-radius: 5px;
+    color: #888282;
 }
 
 input[type="submit"] {
     height: 40px;
     border: 1px solid #ffffff;
     border-radius: 5px;
-    background-color: #46d381;
+    background-color: #1aa731;
     color: #ffffff;
     text-align: justify;
 }
 
-
-div p:first-child {
-    position: relative;
-    top: 5px; 
-    font-size: 80%
+label {
+    font-size: 84%;
 }
 
-div p:last-child {
-    position: relative;
-    bottom: 10px; 
-    font-size: 70%
+input, label {
+   display: block;
 }
 
-#fio {
-    float: left;
+p {
+    color: #272626;
+    font-size: 90%;
+}
+
+span {
+    color: #000000;
+    font-weight: bold; 
+}
+
+#full-name {
+    float: left; 
 }
 
 #group-num {
-    position: relative;
-    float: left;
+    position: relative; 
+    float: left;  
     left: 15px;
 }
 

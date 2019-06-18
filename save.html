@@ -9,15 +9,12 @@
         <section>
             <h3>Сохранить задание на сервере</h3>
             <p>Для сохранения задания на сервере укажите ваше ФИО и номер группы.<br>
-            <span>Также вы должны ввести ваш ответ в форме "Ответ".</span></p>
-            <div id="fio">
-                <p>Ваше ФИО</p>
-                <input type="text" value="Ваше ФИО">
-                <p>Заполните ваше полное ФИО</p>
+            <div id="full-name">
+                <label>Ваше ФИО<input type="text" id="full-name-field" value="Ваше ФИО"></label>
+                <p>Заполните ваше полное ФИО</p> 
             </div>
             <div id="group-num">
-                <p>Номер вашей группы</p>
-                <input type="text" value="Номер вашей группы">
+                <label>Номер вашей группы<input type="text" id="group-field" value="Номер вашей группы"></label>
                 <p>Заполните номер вашей группы</p>
             </div>
             <div style="clear:both"></div>
@@ -29,5 +26,7 @@
             <span>Если вы сохранили задание, то загрузите задание в фоме "загрузка задания из файла</span></p>  
             <input type="submit" id="save-local" value="Сохранить задание в файл"> 
         </section>
+
+        <script src="js/nsp-work.js"></script>
     </body>
 </html>

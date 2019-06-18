@@ -41,7 +41,7 @@ function addRow(id) {
 
 function rowsCounter(id) {
     const table = document.getElementById(id).getElementsByTagName('tbody')[0];
-    return table.children.length;
+    return table.children.length + 1;
 }
 
 function deleteRow(id) {
@@ -80,11 +80,6 @@ function wrongRules(elem) {
     return false;
 }
 
-const addButtonFirstTable = document.getElementsByClassName('add')[0];
-const removeButtonFirstTable = document.getElementsByClassName('remove')[0];
-const addButtonSecondTable = document.getElementsByClassName('add')[1];
-const removeButtonSecondTable = document.getElementsByClassName('remove')[1];
-
 function stopReload() {
     const formElements = document.querySelectorAll('input[type="submit"], button');
 
@@ -95,6 +90,13 @@ function stopReload() {
     }
    
 }
+
+const addButtonFirstTable = document.getElementsByClassName('add')[0];
+const removeButtonFirstTable = document.getElementsByClassName('remove')[0];
+const addButtonSecondTable = document.getElementsByClassName('add')[1];
+const removeButtonSecondTable = document.getElementsByClassName('remove')[1];
+
+
 
 function main() {
     addButtonFirstTable.addEventListener("click", function() {addRow('first-table')} );

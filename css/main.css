@@ -1,0 +1,22 @@
+* {
+    font-family: 'Verdana', sans-serif;
+}
+
+input[type="button"] {
+    height: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #1aa731;
+    color: #ffffff;
+    text-align: justify;
+}
+
+p {
+    color: #272626;
+    font-size: 90%;
+}
+
+span {
+    color: #000000;
+    font-weight: bold; 
+}

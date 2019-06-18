@@ -40,7 +40,7 @@ tr td {
     border: 1px solid black;
 }
 
-input {
+td input {
     width: 200px;
     text-align: center;
 }
@@ -54,13 +54,30 @@ button {
 
 input[type="button"] {
     position: relative;
-    top: 30px;
+    top: 20px;
     height: 40px;
     border: 1px solid #ffffff;
     border-radius: 5px;
-    background-color: #46d381;
+    background-color: #1aa731;
     color: #ffffff;
     text-align: justify;
+}
+
+input[type="button"] {
+    position: relative;
+    top: 0px; 
+    height: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #1aa731;
+    color: #ffffff;
+    text-align: justify;
+}
+
+section p {
+    position: relative;
+    top: -5px;
+    font-size: 13px;
 }
 
 .answer {
