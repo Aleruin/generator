@@ -1,0 +1,16 @@
+[
+	{
+		"variantNumber": "1",
+		"dfsMethod": {
+			"factsBase": ["G, E, R, F", "G, E, R, F, M", "G, E, R, F, M, D", "G, E, R, F, M, D, C", "G, E, R, F, M, D, C, A"],
+			"conflictPluraty": ["3, 5, 7", "1, 3, 5", "1, 2, 3", "1, 2, 4"],
+			"activatedRule": ["7", "5", "3", "4"]
+		},
+		"bfsMethod": {
+			"factsBase": ["G, E, R, F", "G, E, R, F, C", "G, E, R, F, C, D", "G, E, R, F, C, D, B", "G, E, R, F, C, D, B, A"],
+			"conflictPluraty": ["3, 5, 7", "5, 7", "2, 7", "4, 7"],
+			"activatedRule": ["3", "5", "2", "4"]
+		} 	
+	}
+]
+//changes

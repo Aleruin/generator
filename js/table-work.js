@@ -30,6 +30,7 @@ function addRow(id) {
                 case 2: inp.name = "conf-plur"; break;
                 case 3: inp.name = "active-rule"; break;
             }
+
             td.appendChild(inp);
         }
         
@@ -41,7 +42,7 @@ function addRow(id) {
 
 function rowsCounter(id) {
     const table = document.getElementById(id).getElementsByTagName('tbody')[0];
-    return table.children.length;
+    return table.children.length + 1;
 }
 
 function deleteRow(id) {
@@ -54,7 +55,7 @@ function deleteRow(id) {
 
 function isEmptyInput(elem) {   
     for (let i = 1; i < elem.querySelector('tr:last-child').children.length; i++) {
-        if (elem.querySelector('tr:last-child').getElementsByTagName('input')[i - 1].value == '') { //добавить проверку на пустые пробелы 
+        if (elem.querySelector('tr:last-child').getElementsByTagName('input')[i - 1].value == '') {  
             return true;                                                                        
         } 
     }
@@ -63,7 +64,7 @@ function isEmptyInput(elem) {
 }
 
 function wrongFacts(elem) {
-    if (elem.querySelectorAll('input')[0].value.match(/[A-Z],?/) == null) { //добавить проверку поля на пустые пробелы
+    if (elem.querySelectorAll('input')[0].value.match(/[A-Z],?/) == null) { 
         return true;
     }
     
@@ -72,18 +73,13 @@ function wrongFacts(elem) {
 
 function wrongRules(elem) {
     for (let i = 2; i < elem.querySelector('tr:last-child').children.length; i++) {
-        if (elem.querySelectorAll('input')[i - 1].value.match(/[0-9],?/) == null) { //добавить проверку поля на пустые пробелы
+        if (elem.querySelectorAll('input')[i - 1].value.match(/[0-9],?/) == null) { 
             return true; 
         }
     }
 
     return false;
 }
-
-const addButtonFirstTable = document.getElementsByClassName('add')[0];
-const removeButtonFirstTable = document.getElementsByClassName('remove')[0];
-const addButtonSecondTable = document.getElementsByClassName('add')[1];
-const removeButtonSecondTable = document.getElementsByClassName('remove')[1];
 
 function stopReload() {
     const formElements = document.querySelectorAll('input[type="submit"], button');
@@ -95,6 +91,11 @@ function stopReload() {
     }
    
 }
+
+const addButtonFirstTable = document.getElementsByClassName('add')[0];
+const removeButtonFirstTable = document.getElementsByClassName('remove')[0];
+const addButtonSecondTable = document.getElementsByClassName('add')[1];
+const removeButtonSecondTable = document.getElementsByClassName('remove')[1];
 
 function main() {
     addButtonFirstTable.addEventListener("click", function() {addRow('first-table')} );

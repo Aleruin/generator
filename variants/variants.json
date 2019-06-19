@@ -1,0 +1,55 @@
+[
+	{ 
+	"rulesBase": ["E & M → A", "F & D & E → B", "G → C", "B & C → A", "R → D", "S → A", "F & G → M"], 
+    "factsBase": ["G", "E", "R", "F"],
+    "variantNumber": "1"
+    }, 
+
+    { 
+    "rulesBase": ["B & C & D → A", "E → B", "G & H → C", "F → B", "E → A", "C & D → B"], 
+    "factsBase": ["G", "H", "D", "F"],
+    "variantNumber": "2"
+    },
+    { 
+    "rulesBase": ["B & C & D → A", "F & G → B", "H & D → E", "E → A", "D & F → C"], 
+    "factsBase": ["G", "H", "D", "F"],
+    "variantNumber": "3"
+    },
+    { 
+    "rulesBase": ["C & D → B", "E → B", "F & G → E", "B → A", "H → C", "G & D → R", "R & C → A"], 
+    "factsBase": ["G", "H", "D", "F"],
+    "variantNumber": "4"
+    },
+    { 
+    "rulesBase": ["D → B", "F & H → D", "B & C → A", "G & R → E", "E → B", "F & G → C", "C → R"], 
+    "factsBase": ["G", "H", "F"],
+    "variantNumber": "5"
+    },
+    { 
+    "rulesBase": ["G → C", "H → F", "E & F & D → B", "C & F → E", "B → A", "C → A"], 
+    "factsBase": ["G", "H", "D"],
+    "variantNumber": "6"
+    },
+    { 
+    "rulesBase": ["B → A", "H → D", "C → B", "D → B", "G & F → E", "E → C", "G & D → A"], 
+    "factsBase": ["G", "H", "F"],
+    "variantNumber": "7"
+    },
+    { 
+    "rulesBase": ["B & C → A", "E & D → A", "H → C", "R → D", "G → E", "F & G → B"], 
+    "factsBase": ["G", "H", "R"],
+    "variantNumber": "8"
+    },
+    { 
+    "rulesBase": ["B → A", "F → B", "G → F", "C → A", "H → E", "D & E → B"], 
+    "factsBase": ["G", "H", "D"],
+    "variantNumber": "9"
+    },
+    { 
+    "rulesBase": ["B & C → A", "D → B", "E → B", "F → C", "G → C", "D & F → K", "K → A", "E & G → D"], 
+    "factsBase": ["E", "F", "G"],
+    "variantNumber": "10"
+    }
+]
+
+//changes

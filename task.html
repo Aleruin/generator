@@ -23,8 +23,7 @@
             </ol>
         </section>
 
-        <div id="variant">
-            <b>Вариант задания</b>
+        <div id="variant">        
             <table class="task">
                 <thead>
                     <tr>
@@ -58,7 +57,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>0</td>
+                        <td>1</td>
                         <td>
                             <input type='text' name="user-facts">
                         </td>
@@ -88,7 +87,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>0</td>
+                        <td>1</td>
                         <td>
                             <input type='text' name="user-facts">
                         </td>
@@ -104,10 +103,25 @@
             <button class="add">+</button>
             <button class="remove">-</button>
         </form>
-        <input type="button" id="send" value="Проверить ответ">
+        
+        <section>
+            <h3>Сохранить задание на сервере</h3>
+            <p>Для окончательной отправки ответа на задание нажмите кнопку "Сохранить задание на сервере".</p>
+            <input type="button" id="send-to-server" value="Сохранить задание на сервере">
+        </section>
+        <section>
+            <h3>Сохранить задание в файл</h3>
+            <p>Вы можете сохранить свое задание в файл, чтобы решить его позже.</p>  
+            <input type="button" id="save-local" value="Сохранить задание в файл"> 
+        </section>
                
         <script src="js/table-work.js"></script>
         <script src="js/load-answer.js"></script>
+        <script>
+            if(sessionStorage.getItem('dfsFacts0')) {
+                document.write("<script src='load-file.js'><\/script>");
+            }
+        </script>
                          
     </body>  
 </html>
