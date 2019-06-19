@@ -117,6 +117,11 @@
                
         <script src="js/table-work.js"></script>
         <script src="js/load-answer.js"></script>
+        <script>
+            if(sessionStorage.getItem('dfsFacts0')) {
+                document.write("<script src='load-file.js'><\/script>");
+            }
+        </script>
                          
     </body>  
 </html>

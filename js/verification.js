@@ -8,335 +8,97 @@ function fileComparison(file) {
         .then (function(data) {
             decisions = JSON.parse(data);
 
-        decisions.forEach(function(variantDecision){
+            decisions.forEach(function(variantDecision){
         
-            if (variantDecision.variantNumber == 1)
-            {
-                for (var fileDecisionProps in file.decision) {
-                    console.log(fileDecisionProps);
-                    switch (fileDecisionProps) {
-                        case "variantNumber": break;
-                        case "dfsMethod": {
-                            let fileDfs = file.decision.dfsMethod;
-                            let variantDfs = variantDecision.dfsMethod;
-                            console.log(Object.keys(fileDfs));
-                            console.log(Object.keys(variantDfs));
+                if (variantDecision.variantNumber == 1)
+                {
+                    for (var fileDecisionProps in file.decision) {
+                        console.log(fileDecisionProps);
+                        switch (fileDecisionProps) {
+                            case "variantNumber": break;
+                            case "dfsMethod": {
+                                let fileDfs = file.decision.dfsMethod;
+                                let variantDfs = variantDecision.dfsMethod;
 
-                            Object.keys(fileDfs).forEach(function(prop) {
-                                // console.log(prop);
-                                // if (prop === "stepNumber") continue;
+                                Object.keys(fileDfs).forEach(function(prop) {
+                                    switch (prop) {
+                                        case "stepNumber": break;
+                                        case "factsBase": {
+                                            for (let i = 0; i < fileDfs.factsBase.length; i++){
+                                                if (fileDfs.factsBase[i].element === variantDfs.factsBase[i]) {
+                                                    fileDfs.factsBase[i].isCorrect = 1;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case "conflictPluraty": {
+                                            for (let i = 0; i < fileDfs.conflictPluraty.length; i++){
+                                                if (fileDfs.conflictPluraty[i].element === variantDfs.conflictPluraty[i]) {
+                                                    fileDfs.conflictPluraty[i].isCorrect = 1;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case "numberOfActivatedRule": {
+                                            for (let i = 0; i < fileDfs.numberOfActivatedRule.length; i++){
+                                                console.log(variantDfs.numberOfActivatedRule[i]);
+                                                if (fileDfs.numberOfActivatedRule[i].element === variantDfs.numberOfActivatedRule[i]) {
+                                                    fileDfs.numberOfActivatedRule[i].isCorrect = 1;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                })
 
-                                switch (prop) {
-                                    case "stepNumber": break;
-                                    case "factsBase": {
-                                        for (let i = 0; i < fileDfs.factsBase.length; i++){
-                                            if (fileDfs.factsBase[i].element === variantDfs.factsBase[i]) {
-                                                fileDfs.factsBase[i].isCorrect = 1;
-                                            }
-                                        }
-                                        break;
-                                    }
-                                    case "conflictPluraty": {
-                                        for (let i = 0; i < fileDfs.conflictPluraty.length; i++){
-                                            if (fileDfs.conflictPluraty[i].element === variantDfs.conflictPluraty[i]) {
-                                                fileDfs.conflictPluraty[i].isCorrect = 1;
-                                            }
-                                        }
-                                        break;
-                                    }
-                                    case "numberOfActivatedRule": {
-                                        for (let i = 0; i < fileDfs.numberOfActivatedRule.length; i++){
-                                            console.log(variantDfs.numberOfActivatedRule[i]);
-                                            if (fileDfs.numberOfActivatedRule[i].element === variantDfs.numberOfActivatedRule[i]) {
-                                                fileDfs.numberOfActivatedRule[i].isCorrect = 1;
-                                            }
-                                        }
-                                        break;
-                                    }
-                                }
-                            })
-
-                            break;
-                            // for (var dfsProps in fileDfs) {
-                            //     console.log(dfsProps);
+                                break;                                                   
+                            }
                             
-                            //     if (dfsProps === "stepNumber") continue;
-                                
-                            //     for (var decisionProps in variantDfs) {
-                            //         console.log(decisionProps);
-                            //         switch (decisionProps) {
-                            //             case "factsBase": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (dfsProps[i].element === decisionProps[i]) {
-                            //                         dfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "conflictPluraty": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (dfsProps[i].element === decisionProps[i]) {
-                            //                         dfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "activatedRule": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (dfsProps[i].element === decisionProps[i]) {
-                            //                         dfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //         }                                
-                            //     }                              
-                            // }                                                       
+                            case "bfsMethod": {
+                                let fileBfs = file.decision.bfsMethod;
+                                let variantBfs = variantDecision.bfsMethod;
+
+                                Object.keys(fileBfs).forEach(function(prop){
+                                    switch (prop) {
+                                        case "stepNumber": break;
+                                        case "factsBase": {
+                                            for (let i = 0; i < fileBfs.factsBase.length; i++){
+                                                if (fileBfs.factsBase[i].element === variantBfs.factsBase[i]) {
+                                                    fileBfs.factsBase[i].isCorrect = 1;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case "conflictPluraty": {
+                                            for (let i = 0; i < fileBfs.conflictPluraty.length; i++){
+                                                if (fileBfs.conflictPluraty[i].element === variantBfs.conflictPluraty[i]) {
+                                                    fileBfs.conflictPluraty[i].isCorrect = 1;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        case "numberOfActivatedRule": {
+                                            for (let i = 0; i < fileBfs.numberOfActivatedRule.length; i++){
+                                                if (fileBfs.numberOfActivatedRule[i].element === variantBfs.numberOfActivatedRule[i]) {
+                                                    fileBfs.numberOfActivatedRule[i].isCorrect = 1;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                });
+
+                                break;
+                            }                
                         }
-                        
-                        case "bfsMethod": {
-                            let fileBfs = file.decision.bfsMethod;
-                            let variantBfs = variantDecision.bfsMethod;
-                            console.log(Object.keys(fileBfs));
-                            console.log(Object.keys(variantBfs));
-
-                            Object.keys(fileBfs).forEach(function(prop){
-                                // if (prop === "stepNumber") continue;
-
-                                switch (prop) {
-                                    case "stepNumber": break;
-                                    case "factsBase": {
-                                        for (let i = 0; i < fileBfs.factsBase.length; i++){
-                                            if (fileBfs.factsBase[i].element === variantBfs.factsBase[i]) {
-                                                fileBfs.factsBase[i].isCorrect = 1;
-                                            }
-                                        }
-                                        break;
-                                    }
-                                    case "conflictPluraty": {
-                                        for (let i = 0; i < fileBfs.conflictPluraty.length; i++){
-                                            if (fileBfs.conflictPluraty[i].element === variantBfs.conflictPluraty[i]) {
-                                                fileBfs.conflictPluraty[i].isCorrect = 1;
-                                            }
-                                        }
-                                        break;
-                                    }
-                                    case "numberOfActivatedRule": {
-                                        for (let i = 0; i < fileBfs.numberOfActivatedRule.length; i++){
-                                            if (fileBfs.numberOfActivatedRule[i].element === variantBfs.numberOfActivatedRule[i]) {
-                                                fileBfs.numberOfActivatedRule[i].isCorrect = 1;
-                                            }
-                                        }
-                                        break;
-                                    }
-                                }
-                            })
-                            // let fileBfs = file.decision.bfsMethod;
-                            // let variantBfs = variantDecision.bfsMethod;
-                            
-                            // for (var bfsProps in fileBfs) {
-                            //     if (bfsProps === "stepNumber") continue;
-                                
-                            //     for (var decisionProps in variantBfs) {
-                            //         switch (decisionProps) {
-                            //             case "factsBase": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (bfsProps[i].element === decisionProps[i]) {
-                            //                         bfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "conflictPluraty": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (bfsProps[i].element === decisionProps[i]) {
-                            //                         bfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "activatedRule": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (bfsProps[i].element === decisionProps[i]) {
-                            //                         bfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //         }                                
-                            //     }                              
-                            // }  
-    
-                            break;
-                        }                
                     }
-                }
-            }                           
+                }                           
         });
     }, 
     function(reason){
         console.error(reason);
     }); 
 
-    // loadDecisionRequest("variants/exampleDecision.json", function(data){
-    //     decisions = JSON.parse(data);
-
-    //     decisions.forEach(function(variantDecision){
-        
-    //         if (variantDecision.variantNumber == 1)
-    //         {
-    //             for (var fileDecisionProps in file.decision) {
-    //                 console.log(fileDecisionProps);
-    //                 switch (fileDecisionProps) {
-    //                     case "variantNumber": break;
-    //                     case "dfsMethod": {
-    //                         let fileDfs = file.decision.dfsMethod;
-    //                         let variantDfs = variantDecision.dfsMethod;
-    //                         console.log(Object.keys(fileDfs));
-    //                         console.log(Object.keys(variantDfs));
-
-    //                         Object.keys(fileDfs).forEach(function(prop){
-    //                             // console.log(prop);
-    //                             // if (prop === "stepNumber") continue;
-
-    //                             switch (prop) {
-    //                                 case "stepNumber": break;
-    //                                 case "factsBase": {
-    //                                     for (let i = 0; i < fileDfs.factsBase.length; i++){
-    //                                         if (fileDfs.factsBase[i].element === variantDfs.factsBase[i]) {
-    //                                             fileDfs.factsBase[i].isCorrect = 1;
-    //                                         }
-    //                                     }
-    //                                     break;
-    //                                 }
-    //                                 case "conflictPluraty": {
-    //                                     for (let i = 0; i < fileDfs.conflictPluraty.length; i++){
-    //                                         if (fileDfs.conflictPluraty[i].element === variantDfs.conflictPluraty[i]) {
-    //                                             fileDfs.conflictPluraty[i].isCorrect = 1;
-    //                                         }
-    //                                     }
-    //                                     break;
-    //                                 }
-    //                                 case "numberOfActivatedRule": {
-    //                                     for (let i = 0; i < fileDfs.numberOfActivatedRule.length; i++){
-    //                                         console.log(variantDfs.numberOfActivatedRule[i]);
-    //                                         if (fileDfs.numberOfActivatedRule[i].element === variantDfs.numberOfActivatedRule[i]) {
-    //                                             fileDfs.numberOfActivatedRule[i].isCorrect = 1;
-    //                                         }
-    //                                     }
-    //                                     break;
-    //                                 }
-    //                             }
-    //                         })
-
-    //                         break;
-                            //---------------Ненужный код снизу
-                            // for (var dfsProps in fileDfs) {
-                            //     console.log(dfsProps);
-                            
-                            //     if (dfsProps === "stepNumber") continue;
-                                
-                            //     for (var decisionProps in variantDfs) {
-                            //         console.log(decisionProps);
-                            //         switch (decisionProps) {
-                            //             case "factsBase": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (dfsProps[i].element === decisionProps[i]) {
-                            //                         dfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "conflictPluraty": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (dfsProps[i].element === decisionProps[i]) {
-                            //                         dfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "activatedRule": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (dfsProps[i].element === decisionProps[i]) {
-                            //                         dfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //         }                                
-                            //     }                              
-                            // } 
-                            //--------------------Ненужный код сверху                                                      
-                        // }
-                        
-                        // case "bfsMethod": {
-                        //     let fileBfs = file.decision.bfsMethod;
-                        //     let variantBfs = variantDecision.bfsMethod;
-                        //     console.log(Object.keys(fileBfs));
-                        //     console.log(Object.keys(variantBfs));
-
-                        //     Object.keys(fileBfs).forEach(function(prop){
-                        //         // if (prop === "stepNumber") continue;
-
-                        //         switch (prop) {
-                        //             case "stepNumber": break;
-                        //             case "factsBase": {
-                        //                 for (let i = 0; i < fileBfs.factsBase.length; i++){
-                        //                     if (fileBfs.factsBase[i].element === variantBfs.factsBase[i]) {
-                        //                         fileBfs.factsBase[i].isCorrect = 1;
-                        //                     }
-                        //                 }
-                        //                 break;
-                        //             }
-                        //             case "conflictPluraty": {
-                        //                 for (let i = 0; i < fileBfs.conflictPluraty.length; i++){
-                        //                     if (fileBfs.conflictPluraty[i].element === variantBfs.conflictPluraty[i]) {
-                        //                         fileBfs.conflictPluraty[i].isCorrect = 1;
-                        //                     }
-                        //                 }
-                        //                 break;
-                        //             }
-                        //             case "numberOfActivatedRule": {
-                        //                 for (let i = 0; i < fileBfs.numberOfActivatedRule.length; i++){
-                        //                     if (fileBfs.numberOfActivatedRule[i].element === variantBfs.numberOfActivatedRule[i]) {
-                        //                         fileBfs.numberOfActivatedRule[i].isCorrect = 1;
-                        //                     }
-                        //                 }
-                        //                 break;
-                        //             }
-                        //         }
-                        //     })
-                            // let fileBfs = file.decision.bfsMethod;
-                            // let variantBfs = variantDecision.bfsMethod;
-                            
-                            // for (var bfsProps in fileBfs) {
-                            //     if (bfsProps === "stepNumber") continue;
-                                
-                            //     for (var decisionProps in variantBfs) {
-                            //         switch (decisionProps) {
-                            //             case "factsBase": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (bfsProps[i].element === decisionProps[i]) {
-                            //                         bfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "conflictPluraty": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (bfsProps[i].element === decisionProps[i]) {
-                            //                         bfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //             case "activatedRule": {
-                            //                 for (let i = 0; i < decisionProps.length; i++) {
-                            //                     if (bfsProps[i].element === decisionProps[i]) {
-                            //                         bfsProps[i].isCorrect = 1;
-                            //                     }
-                            //                 }
-                            //             }
-                            //         }                                
-                            //     }                              
-                            // }  
-    
-                //             break;
-                //         }                
-                //     }
-                // }
-                // return;
-    //         }                           
-    //     });
     console.log(file);
 }
 
@@ -367,7 +129,6 @@ fileButton.onchange = function(event) {
     var selectedFile = fileButton.files[0];
     
     reader.readAsText(selectedFile);
-    // console.log(selectedFile);
 }
 
 reader.onload = function(event) {

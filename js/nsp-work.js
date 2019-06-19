@@ -41,11 +41,6 @@ function loadAnswerRequest() {
 const fullNameInput = document.getElementById('full-name-field');
 const groupInput = document.getElementById('group-field');
 const continueButton = document.getElementById('continue');
-// const saveInFileButton = document.getElementById('save-local');
-
-// saveOnServerButton.onclick = function (event) {
-//     event.preventDefault();
-// }
 
 continueButton.onclick = function (event) {
     event.preventDefault();

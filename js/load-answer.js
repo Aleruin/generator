@@ -99,7 +99,6 @@ const localSaveButton = document.querySelector('#save-local');
 saveToServerButton.onclick = function (event) {
     event.preventDefault();
     loadAnswerRequest();
-    // window.location.href = "save.html"; 
 }
 
 localSaveButton.onclick = function (event) {
@@ -109,35 +108,3 @@ localSaveButton.onclick = function (event) {
    
     saveAs(blob, "answer.json");
 }
-//saveButton.addEventListener("submit", function() { serialize(loadForm) });
-
-// function include(url) {
-//         var script = document.createElement('script');
-//         script.src = url;
-//         document.getElementsByTagName('head')[0].appendChild(script);
-//     }
-
-// include("/js/script.js");
-
-//console.log(loadForm.querySelector('#first-table'));
-
-// function serialize(forms) {
-//     var q = [];
-
-//     for (let j = 0; j < forms.length; j++)
-//     {
-//         for (let i = 0; i < forms[j].elements.length; i++) {
-//             if (forms[j].elements[i].name === "") continue;
-    
-//             switch(forms[j].elements[i].nodeName) {
-//                 case 'INPUT': {
-//                     q.push(forms[j].elements[i].name + j +"=" + encodeURIComponent(forms[j].elements[i].value));
-//                     break;
-//                 }
-//                 case 'BUTTON': break;
-//             }
-//         }
-//     }
-
-//     return q.join("&");
-// }

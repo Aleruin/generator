@@ -22,15 +22,10 @@ function clearGroupField(target) {
     }
 }
 
-
-
-function sendStudentData() {
+function sendStudentData(json) {
     var request = new XMLHttpRequest();
     request.overrideMimeType("application/json");
-    request.open('POST', 'server.js', true);
-    // var params = 'fullName=' + encodeURIComponent(fullName) +
-    // '&groupField=' + encodeURIComponent(groupField);
-    
+    request.open('POST', 'server.js', true);   
     request.setRequestHeader("Content-Type", "application/json");
 
     request.onreadystatechange = function() {
@@ -41,7 +36,7 @@ function sendStudentData() {
         }
     }
 
-    request.send(); 
+    request.send(json); 
 }
 
 const fullNameInput = document.querySelector('input[name="full-name"]');
@@ -54,11 +49,6 @@ function serialize() {
 
     return JSON.stringify(new Student(fullNameArray[0], fullNameArray[1], fullNameArray[2], groupNumber));
 }
-// const saveInFileButton = document.getElementById('save-local');
-
-// saveOnServerButton.onclick = function (event) {
-//     event.preventDefault();
-// }
 
 continueButton.onclick = function (event) {
     event.preventDefault();
