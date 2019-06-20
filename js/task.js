@@ -20,8 +20,12 @@ window.onload = function() {
         document.querySelector('#variant').insertBefore(variantString, document.getElementsByClassName('task')[0]);
     });
 
-    if (sessionStorage.getItem('decisionFile')) {
-        loadDecision(JSON.parse(sessionStorage.getItem('decisionFile')));
+    if (localStorage.getItem('decisionFile')) {
+        loadDecision(JSON.parse(localStorage.getItem('decisionFile')), false);
+    }
+
+    if (localStorage.getItem('resultData')) {
+        loadDecision(JSON.parse(localStorage.getItem('resultData')), true);
     }
 }
 
@@ -31,7 +35,10 @@ function taskRequest(file, callback) {
     request.open("GET", file, true);
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status == "200") {
+            console.log("Все ок");
             callback(request.responseText);
+        } else {
+            console.log("Что-то пошло не так");
         }
     }
 
@@ -39,7 +46,7 @@ function taskRequest(file, callback) {
 
 }
 
-function loadDecision(file) {
+function loadDecision(file, isResult) {
     for (var fileDecisionProps in file.decision) {
         switch (fileDecisionProps) {
             case "variantNumber": break;
@@ -54,19 +61,19 @@ function loadDecision(file) {
                         };
                         case "factsBase": {
                             for (let i = 0; i < fileDfs.factsBase.length; i++){
-                                fillTable('second-table', 'input[name="user-facts"]', fileDfs.factsBase[i].element, i);
+                                fillTable('second-table', 'input[name="user-facts"]', fileDfs.factsBase[i], i, isResult);
                             }
                             break;
                         }
                         case "conflictPluraty": {
                             for (let i = 0; i < fileDfs.conflictPluraty.length; i++){
-                                fillTable('second-table', 'input[name="conf-plur"]', fileDfs.conflictPluraty[i].element, i);
+                                fillTable('second-table', 'input[name="conf-plur"]', fileDfs.conflictPluraty[i], i, isResult);
                             }
                             break;
                         }
                         case "numberOfActivatedRule": {
                             for (let i = 0; i < fileDfs.numberOfActivatedRule.length; i++){
-                                fillTable('second-table', 'input[name="active-rule"]', fileDfs.numberOfActivatedRule[i].element, i);
+                                fillTable('second-table', 'input[name="active-rule"]', fileDfs.numberOfActivatedRule[i], i, isResult);
                             }
                             break;
                         }
@@ -87,19 +94,19 @@ function loadDecision(file) {
                         }
                         case "factsBase": {
                             for (let i = 0; i < fileBfs.factsBase.length; i++){
-                                fillTable('first-table', 'input[name="user-facts"]', fileBfs.factsBase[i].element, i);
+                                fillTable('first-table', 'input[name="user-facts"]', fileBfs.factsBase[i], i, isResult);
                             }
                             break;
                         }
                         case "conflictPluraty": {
                             for (let i = 0; i < fileBfs.conflictPluraty.length; i++){
-                                fillTable('first-table', 'input[name="conf-plur"]', fileBfs.conflictPluraty[i].element, i);
+                                fillTable('first-table', 'input[name="conf-plur"]', fileBfs.conflictPluraty[i], i, isResult);
                             }
                             break;
                         }
                         case "numberOfActivatedRule": {
                             for (let i = 0; i < fileBfs.numberOfActivatedRule.length; i++){
-                                fillTable('first-table', 'input[name="active-rule"]', fileBfs.numberOfActivatedRule[i].element, i);
+                                fillTable('first-table', 'input[name="active-rule"]', fileBfs.numberOfActivatedRule[i], i, isResult);
                             }
                             break;
                         }
@@ -141,8 +148,18 @@ function createEmptyTable(id, method) {
     }
 }
 
-function fillTable(id, selector, data, index){
+function fillTable(id, selector, data, index, isResult){
     const table = document.getElementById(id).getElementsByTagName('tbody')[0];
     
-    table.querySelectorAll(selector)[index].value = data;
+    table.querySelectorAll(selector)[index].value = data.element;
+
+    if(isResult) {
+        checkCell(table.querySelectorAll(selector)[index], data.isCorrect);
+    }   
+}
+
+function checkCell(inp, isCorrectValue) {
+    if (!isCorrectValue) {
+        inp.style.backgroundColor = '#f37676';
+    }
 }

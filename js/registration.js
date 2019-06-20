@@ -1,6 +1,6 @@
-function Student(firstName, lastName, patronymic, groupNumber) {
-    this.firstName = firstName;
+function Student(lastName, firstName, patronymic, groupNumber) {
     this.lastName = lastName;
+    this.firstName = firstName;
     this.patronymic = patronymic;
     this.groupNumber = groupNumber;
 }
@@ -22,21 +22,8 @@ function clearGroupField(target) {
     }
 }
 
-function sendStudentData(json) {
-    var request = new XMLHttpRequest();
-    request.overrideMimeType("application/json");
-    request.open('POST', 'server.js', true);   
-    request.setRequestHeader("Content-Type", "application/json");
-
-    request.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status == "200") {
-            alert(this.responseText);
-        } else {
-            alert("Что-то пошло не так");
-        }
-    }
-
-    request.send(json); 
+function saveStudentDataInStorage(student) {
+    return localStorage.setItem('studentData', student);
 }
 
 const fullNameInput = document.querySelector('input[name="full-name"]');
@@ -44,15 +31,18 @@ const groupInput = document.querySelector('input[name="group-field"]');
 const continueButton = document.getElementById('continue');
 
 function serialize() {
-    let fullNameArray = fullNameInput.textContent.split(" ");
-    let groupNumber = groupInput.textContent;
+    let fullNameArray = fullNameInput.value.split(" ");
+    let groupNumber = groupInput.value;
 
     return JSON.stringify(new Student(fullNameArray[0], fullNameArray[1], fullNameArray[2], groupNumber));
 }
 
 continueButton.onclick = function (event) {
     event.preventDefault();
-    sendStudentData(serialize());
+    
+    saveStudentDataInStorage(serialize());
+
+    window.location.href='task.html';
 }
 
 fullNameInput.addEventListener("click", function() {clearFullNameField(this);} );

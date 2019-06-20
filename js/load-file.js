@@ -1,10 +1,11 @@
+const registrationButton = document.getElementById('registration');
 const chooseButton = document.getElementById('load-file');
-const checkDecisionButton = document.getElementById('check-result');
+const checkDecisionButton = document.getElementById('check-file');
+const checkResultButton = document.getElementById('check-result');
 const reader = new FileReader();
 
 function saveFileInStorage(file) {
-    console.log(file);
-    return sessionStorage.setItem('decisionFile', JSON.stringify(file));    
+    return localStorage.setItem('decisionFile', JSON.stringify(file));    
 }
 
 chooseButton.onchange = function(event) {
@@ -17,15 +18,20 @@ chooseButton.onchange = function(event) {
 
 reader.onload = function(event) {
     var contents = event.target.result;
-
     var userDecision = JSON.parse(contents);  
-    console.log(userDecision);
+
     saveFileInStorage(userDecision);
-    let obj = sessionStorage.getItem('decisionFile');
-    console.log(JSON.parse(obj));
 }
 
-checkDecisionButton.onclick = function(event) {
+registrationButton.onclick = function() {
+    window.location.href='registration.html';
+}
+
+checkDecisionButton.onclick = function() {
     window.location.href='task.html';
+}
+
+checkResultButton.onclick = function() {
+    window.location.href='registration.html';
 }
 
