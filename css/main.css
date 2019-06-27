@@ -21,4 +21,12 @@ span {
     font-weight: bold; 
 }
 
-/* changes */
+#check-file {
+    position: relative;
+    top: 5px;
+}
+
+#continue {
+    position: relative;
+    top: 5px;
+}

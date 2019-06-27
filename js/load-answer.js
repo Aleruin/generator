@@ -1,3 +1,7 @@
+// window.onbeforeunload = function() {
+//     sessionStorage.clear();
+// }
+
 function Answer(stepNumber, factsBase, conflictPluraty, numberOfActivatedRule) {
     this.stepNumber = stepNumber;
     this.factsBase = factsBase;
@@ -20,7 +24,8 @@ function FileDecision(student, decision) {
     this.decision = decision;
 }
 
-function localSerialize() {
+//функция преобразования ФИО и ответа из таблиц в единую структуру
+function localSerialize() { 
     let firstTable = document.querySelector('#second-table'); //потом ИСПРАВИТЬ!
     let secondTable = document.querySelector('#first-table'); //потом ИСПРАВИТЬ!
     let decision = new Decision();
@@ -35,19 +40,19 @@ function localSerialize() {
             switch(inp[i].name) {
                 case "user-facts": {
                     if (inp[i].value) {
-                        factsBase.push(new ElementStructure(inp[i].value, 0));
+                        factsBase.push(new ElementStructure(inp[i].value, isValidElement(inp[i])));
                     }                  
                     break;
                 }
                 case "conf-plur": {
                     if (inp[i].value) {
-                        conflictPluraty.push(new ElementStructure(inp[i].value, 0));
+                        conflictPluraty.push(new ElementStructure(inp[i].value, isValidElement(inp[i])));
                     }                    
                     break;
                 }
                 case "active-rule": {
                     if (inp[i].value) {
-                        numberOfActivatedRule.push(new ElementStructure(inp[i].value, 0));
+                        numberOfActivatedRule.push(new ElementStructure(inp[i].value, isValidElement(inp[i])));
                     }
                     break;
                 }
@@ -70,31 +75,33 @@ function localSerialize() {
         i++;
     }  
 
-    studentData = JSON.parse(localStorage.getItem('studentData'));
+    studentData = JSON.parse(sessionStorage.getItem('studentData'));
  
     let fileDecision = new FileDecision(studentData, decision);
 
     return JSON.stringify(fileDecision);
 }
 
-function loadAnswerRequest() {
+//используется при выборе функции "Регистрация": сохраняет файл на сервере
+function loadAnswerRequest() { 
     var request = new XMLHttpRequest();
     
-    request.open('POST', 'server.js', true);
+    request.open('POST', '/answer', true);
     request.setRequestHeader("Content-Type", "application/json");
     request.onreadystatechange = function() {
         if (this.readyState === 4 && this.status == "200") {
             console.log(this.responseText + 'это не сервер');
             alert(this.responseText);
         } else {
-            alert("Что-то пошло не так");
+            console.log("Request handling...");
         }
     }
 
     request.send(localSerialize()); 
 }
 
-function transliterate(word){
+//функция транслитерации
+function transliterate(word){ 
     let answer = "", a = {};
 
    a["Ё"]="YO";a["Й"]="I";a["Ц"]="TS";a["У"]="U";a["К"]="K";a["Е"]="E";a["Н"]="N";a["Г"]="G";a["Ш"]="SH";a["Щ"]="SCH";a["З"]="Z";a["Х"]="H";a["Ъ"]="'";
@@ -116,21 +123,37 @@ function transliterate(word){
    return answer;
 }
 
+function isValidElement(inp) {
+    console.log(inp.style.backgroundColor);
+    if (sessionStorage.getItem('isRegister') || sessionStorage.getItem('isEditing')) {
+        return 0;
+    } else if (sessionStorage.getItem('isChecking')) {
+        if (inp.style.backgroundColor) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+}
+
 const arrayForms = document.forms;
 const loadForm = document.forms[0];
 const saveToServerButton = document.querySelector('#send-to-server');
 const localSaveButton = document.querySelector('#save-local');
 
-saveToServerButton.onclick = function (event) {
+//Сохраняет решение задания на сервере с аббревиатурой в имени
+saveToServerButton.onclick = function (event) { 
     event.preventDefault();
     loadAnswerRequest();
+    alert('Ваш ответ был успешно отправлен!');
 }
 
-localSaveButton.onclick = function (event) {
+//Сохраняет решение задания локально на компьютере с аббревиатурой в имени
+localSaveButton.onclick = function (event) { 
     event.preventDefault();
 
     let blob = new Blob([localSerialize()], {type: "application/json"});
-    let studentFullName = JSON.parse(localStorage.getItem('studentData'));
+    let studentFullName = JSON.parse(sessionStorage.getItem('studentData'));
     let abbr = "";
 
     Object.keys(studentFullName).forEach(function(prop){

@@ -1,0 +1,9 @@
+[
+	{ 
+	"rulesBase": ["E & M → A", "F & D & E → B", "G → C", "B & C → A", "R → D", "S → A", "F & G → M"], 
+    "factsBase": ["G", "E", "R", "F"],
+    "variantNumber": "1"
+    }
+]
+
+

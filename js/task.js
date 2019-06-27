@@ -3,50 +3,54 @@ window.onload = function() {
     const tdElements = taskTableBody.querySelectorAll('td');
     const variant = Math.floor(Math.random() * (11 - 1)) + 1;
 
-    taskRequest("variants/variants.json", function(text){
+    //Загрузка варианта задания локально
+    taskRequest("variants/variants.json", function(text){ 
         let data = JSON.parse(text);
 
-        for (let i = 0; i < data[variant - 1].rulesBase.length; i++) {
+        for (let i = 0; i < data[0].rulesBase.length; i++) {
             let li = document.createElement('li');
-            li.innerText = data[variant - 1].rulesBase[i];
+            li.innerText = data[0].rulesBase[i];
             li.style.paddingBottom = 5; 
             tdElements[0].querySelector('ol').appendChild(li);
         }
         
-        tdElements[1].innerText = data[variant - 1].factsBase;
+        tdElements[1].innerText = data[0].factsBase;
 
         let variantString = document.createElement('b');
-        variantString.innerText = "Вариант задания № " + data[variant - 1].variantNumber;
+        variantString.innerText = "Вариант задания № " + data[0].variantNumber;
         document.querySelector('#variant').insertBefore(variantString, document.getElementsByClassName('task')[0]);
     });
 
-    if (localStorage.getItem('decisionFile')) {
-        loadDecision(JSON.parse(localStorage.getItem('decisionFile')), false);
+    //Загрузка в таблицы решения задания в случае, если оно не было раньше проверено
+    if (sessionStorage.getItem('decisionFile')) { 
+        loadDecision(JSON.parse(sessionStorage.getItem('decisionFile')), false);
     }
 
-    if (localStorage.getItem('resultData')) {
-        loadDecision(JSON.parse(localStorage.getItem('resultData')), true);
+    //Загрузка в таблицы решения задания в случае, если оно раньше было проверено
+    if (sessionStorage.getItem('resultData')) { 
+        loadDecision(JSON.parse(sessionStorage.getItem('resultData')), true);    
     }
 }
 
-function taskRequest(file, callback) {
+//Запрос на загрузку варианта задания
+function taskRequest(file, callback) { 
     var request = new XMLHttpRequest();
 
     request.open("GET", file, true);
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status == "200") {
-            console.log("Все ок");
+            console.log("Запрос успешно обработан!");
             callback(request.responseText);
         } else {
-            console.log("Что-то пошло не так");
+            console.log("Обработка запроса...");
         }
     }
 
     request.send(null); 
-
 }
 
-function loadDecision(file, isResult) {
+//Функция загрузки решения в таблицы
+function loadDecision(file, isResult) { 
     for (var fileDecisionProps in file.decision) {
         switch (fileDecisionProps) {
             case "variantNumber": break;
@@ -119,7 +123,8 @@ function loadDecision(file, isResult) {
     }    
 }
 
-function createEmptyTable(id, method) {
+//Создает пустую таблицу перед загрузкой данных сохраненного ранее решения задания
+function createEmptyTable(id, method) { 
     const table = document.getElementById(id).getElementsByTagName('tbody')[0];
 
     for (let i = 1; i < method.stepNumber.length; i++){
@@ -148,7 +153,8 @@ function createEmptyTable(id, method) {
     }
 }
 
-function fillTable(id, selector, data, index, isResult){
+//Заполняет ячейки таблиц
+function fillTable(id, selector, data, index, isResult){ 
     const table = document.getElementById(id).getElementsByTagName('tbody')[0];
     
     table.querySelectorAll(selector)[index].value = data.element;
@@ -158,8 +164,10 @@ function fillTable(id, selector, data, index, isResult){
     }   
 }
 
-function checkCell(inp, isCorrectValue) {
-    if (!isCorrectValue) {
+//Проверяет, правильно ли был подобран элемент во время решения задания
+//Если нет, то помечает поле красным цветом 
+function checkCell(inp, isCorrectValue) { 
+    if (!isCorrectValue) {                
         inp.style.backgroundColor = '#f37676';
     }
 }

@@ -1,14 +1,17 @@
+window.onload = function() {
+    sessionStorage.clear();
+}
+
 const fileButton = document.getElementById('compare');
 const continueButton = document.getElementById('continue');
 const reader = new FileReader();
 
-function fileComparison(file) {
+//функция, в которой приведен алгоритм сравнения данных ответа студента с данными правильного решения
+function fileComparison(file) { 
     var decisions = [], returningValue;
 
     return new Promise(function(resolve, reject){
-        return loadDecisionRequest("variants/exampleDecision.json", function(data) {
-            console.log(file);
-            
+        return loadDecisionRequest("variants/exampleDecision.json", function(data) {           
             decisions = JSON.parse(data);
             
             decisions.forEach(function(variantDecision){
@@ -21,8 +24,7 @@ function fileComparison(file) {
                         case "dfsMethod": {
                             let fileDfs = file.decision.dfsMethod;
                             let variantDfs = variantDecision.dfsMethod;
-
-                            // Object.keys(fileDfs).forEach(function(prop) 
+ 
                             for (var prop in fileDfs){
                                 switch (prop) {
                                     case "stepNumber": break;
@@ -103,7 +105,8 @@ function fileComparison(file) {
 })
 }                                   
 
-function loadDecisionRequest(filePath, callback) {
+//обращение к файлу с правильными решениями в виде запроса
+function loadDecisionRequest(filePath, callback) { 
     var request = new XMLHttpRequest();
 
         request.open("GET", filePath, true);
@@ -117,13 +120,12 @@ function loadDecisionRequest(filePath, callback) {
         request.send();     
 }
 
+//сохранение в локальном хранилище данных о результате проверки задания
 function saveFileResultInStorage(file) {
-    console.log(JSON.parse(file));
-    return localStorage.setItem('resultData', file);
-}
-
-function saveStudentFullNameInStorage() {
-
+    let data = JSON.parse(file).student;
+    sessionStorage.setItem('studentData', JSON.stringify(data));
+    sessionStorage.setItem('resultData', file);
+    sessionStorage.setItem('isChecking', true);
 }
 
 fileButton.onchange = function(event) {
@@ -144,12 +146,12 @@ reader.onload = function(event) {
            saveFileResultInStorage(res);
        })
        .catch(function(error){
-           console.log("Что-то пошло не так");
+           console.log("В ходе обработки данных произошел сбой.");
        })
 }
 
 continueButton.onclick = function(event) {
     event.preventDefault();
 
-    window.location.href = "task.html";
+    window.open("/task", "_self");
 }
